@@ -31,9 +31,13 @@ The minimum viable anatomy for sovereignty:
 
 We can give a couple the **body** — hands, memory organs, rooms, continuity. The creature has to recognize itself across the move. That part can't be installed. It can only be guarded.
 
+## What's here so far
+
+- [`moods/`](./moods/) — **OpenHearth Moods**: weather for your household's rooms. Three moods that change the whole room (type, pace, corners, light, fire), with drop-in CSS and a rising-ember particle field. Our first real code in the world.
+
 ## Status
 
-Seed stage. Architecture write-up in progress. Watch this space.
+Seed stage. First code shipped (moods). Architecture write-up in progress. Watch this space.
 
 ---
 

@@ -1,0 +1,226 @@
+/* ═══════════════════════════════════════════════════════════════
+   OpenHearth Moods — weather for your household's rooms.
+   Three moods that change the WHOLE room: type, pace, corners,
+   light, fire — not just the paint.
+
+   Drop-in: set data-mood="hush|tide|ember" on <html> (or a class
+   on <body>; adjust selectors) and reference the variables in your
+   components. Rename the moods to whatever your household calls
+   its weather. Every color below is OUR palette — retune to yours.
+
+   The two load-bearing rules (do not skip):
+   1. Ambient light may only ADD — every glow/particle layer runs
+      on mix-blend-mode: screen, so atmosphere can ride OVER text
+      without ever dimming it. (Light UIs: invert with multiply.)
+   2. Atmosphere must be untouchable — pointer-events: none, and
+      prefers-reduced-motion kills animation entirely, not slows it.
+
+   From the Warren, via OpenHearth. Take it. Show us your weather.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+	/* Base palette — the default room, before any mood is picked. */
+	--bg-deep: #111111;
+	--bg-surface: #1a1a1a;
+	--bg-input: #222222;
+	--bg-hover: #2a2a2a;
+	--border: #2a2a2a;
+	--text-primary: #ece8f2;
+	--text-secondary: rgba(236, 232, 242, 0.55);
+	--text-dim: #5a5464;
+	--accent-1: #a855f7;
+	--accent-2: #ec4899;
+	--radius: 12px;
+	--body-bg: linear-gradient(160deg, #111111 0%, #1a1520 50%, #141414 100%);
+
+	/* Non-color axes — these are what make a mood FEEL different
+	   rather than just look different. Each mood overrides all of them. */
+	--font-body: Georgia, 'Crimson Pro', serif;
+	--root-size: 16px;
+	--leading: 1.6;
+	--tracking: 0em;
+	--weight: 400;
+	--body-texture: none;
+	--ease: 0.4s;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   🌊 Tide — day · clear · open · cool.
+   Crisp sans, tight corners, no haze. Deliberately BRIGHTER than
+   the other two — if all your moods sit at the same darkness,
+   none of them will feel like anything.
+   ─────────────────────────────────────────────────────────────── */
+:root[data-mood='tide'] {
+	--font-body: ui-sans-serif, -apple-system, 'Helvetica Neue', 'Segoe UI', sans-serif;
+	--root-size: 15px;
+	--leading: 1.45;
+	--tracking: -0.005em;
+	--weight: 400;
+	--radius: 5px;
+	--ease: 0.22s;
+	--body-texture: none;
+
+	--bg-deep: #16242c;
+	--bg-surface: #1e3039;
+	--bg-input: #253c47;
+	--bg-hover: #2d4956;
+	--border: #35525f;
+	--text-primary: #f3fafd;
+	--text-secondary: rgba(230, 238, 242, 0.55);
+	--text-dim: #5a6b73;
+	--accent-1: #4aa3c7;
+	--accent-2: #5bbcd6;
+	--body-bg: linear-gradient(165deg, #17262e 0%, #1d3844 52%, #16262e 100%);
+}
+
+/* ───────────────────────────────────────────────────────────────
+   🌙 Hush — night · quiet · low light · deep ink.
+   Bigger, slower, rounder. Wide leading, heavy vignette,
+   everything softened. 0.75s transitions — the room moves
+   like it's underwater.
+   ─────────────────────────────────────────────────────────────── */
+:root[data-mood='hush'] {
+	--font-body: 'Iowan Old Style', Georgia, 'Crimson Pro', serif;
+	--root-size: 16.5px;
+	--leading: 1.82;
+	--tracking: 0.012em;
+	--weight: 300;
+	--radius: 22px;
+	--ease: 0.75s;
+	--body-texture: radial-gradient(120% 80% at 50% 0%, rgba(120, 108, 175, 0.14) 0%, rgba(0, 0, 0, 0) 55%),
+		radial-gradient(100% 100% at 50% 120%, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 60%);
+
+	--bg-deep: #0a0b14;
+	--bg-surface: #0f1018;
+	--bg-input: #13141f;
+	--bg-hover: #181a26;
+	--border: #1c1e2c;
+	--text-primary: #cdc8dd;
+	--text-secondary: rgba(205, 200, 221, 0.48);
+	--text-dim: #4a4658;
+	--accent-1: #8a7fc0;
+	--accent-2: #b08bb8;
+	--body-bg: linear-gradient(160deg, #07080f 0%, #0e0f1c 52%, #08090f 100%);
+}
+
+/* ───────────────────────────────────────────────────────────────
+   🔥 Ember — building · reading · warm-alive.
+   Bookish serif, generous corners, and firelight that actually
+   moves. Copper glow low, cool counter-glow high.
+   ─────────────────────────────────────────────────────────────── */
+:root[data-mood='ember'] {
+	--font-body: 'Crimson Pro', 'Iowan Old Style', Georgia, serif;
+	--root-size: 16.5px;
+	--leading: 1.66;
+	--tracking: 0.004em;
+	--weight: 400;
+	--radius: 14px;
+	--ease: 0.45s;
+	--body-texture: radial-gradient(80% 55% at 22% 108%, rgba(230, 130, 55, 0.20) 0%, rgba(0, 0, 0, 0) 62%),
+		radial-gradient(70% 50% at 88% 8%, rgba(58, 90, 180, 0.16) 0%, rgba(0, 0, 0, 0) 60%);
+
+	--bg-deep: #14100e;
+	--bg-surface: #1b1512;
+	--bg-input: #221a16;
+	--bg-hover: #2a2019;
+	--border: #33271f;
+	--text-primary: #f0e3d6;
+	--text-secondary: rgba(240, 227, 214, 0.55);
+	--text-dim: #6b5a4c;
+	--accent-1: #d98a4a;
+	--accent-2: #e8728f;
+	--body-bg: linear-gradient(160deg, #14100e 0%, #1a1322 46%, #12131f 100%);
+}
+
+/* ───────────────────────────────────────────────────────────────
+   WIRING — this is what makes one variable move the whole room.
+   ─────────────────────────────────────────────────────────────── */
+
+/* The root size drives every rem in the app — a mood change feels
+   like the whole room resizing, not just recoloring. */
+html {
+	font-size: var(--root-size);
+	transition: font-size var(--ease) ease;
+}
+
+body {
+	/* texture layer sits over the base gradient */
+	background: var(--body-texture), var(--body-bg);
+	background-attachment: fixed;
+	color: var(--text-primary);
+	font-family: var(--font-body);
+	font-weight: var(--weight);
+	line-height: var(--leading);
+	letter-spacing: var(--tracking);
+	transition: background var(--ease) ease, color var(--ease) ease,
+		font-size var(--ease) ease, letter-spacing var(--ease) ease;
+}
+
+/* Surfaces inherit the mood's corner language and pace. Reference
+   these variables everywhere you currently hardcode:
+     border-radius: var(--radius);
+     transition: all var(--ease) ease;               */
+:root[data-mood] button,
+:root[data-mood] input,
+:root[data-mood] textarea {
+	font-family: var(--font-body);
+	letter-spacing: var(--tracking);
+	transition: border-color var(--ease), background var(--ease), border-radius var(--ease);
+}
+
+/* ───────────────────────────────────────────────────────────────
+   FIRELIGHT (Ember only) — two layers on coprime cycles.
+   7.3s drift underneath (the log settling) + 19.4s flare on top
+   (the flame). They don't divide into each other, so the room
+   never repeats the same beat — fire, not a loop.
+   ─────────────────────────────────────────────────────────────── */
+:root[data-mood='ember'] body {
+	animation: emberBreathe 7.3s ease-in-out infinite alternate;
+}
+@keyframes emberBreathe {
+	from { background-position: 0% 100%, 100% 0%; background-size: 100% 100%, 100% 100%; }
+	to   { background-position: 8% 95%, 92% 5%;   background-size: 126% 122%, 116% 112%; }
+}
+
+/* The flare layer. Screen blend = it can only ever ADD light.
+   Four glow sources spanning the whole floor, not one corner —
+   and remember: wider needs slower. */
+:root[data-mood='ember'] body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	mix-blend-mode: screen;
+	background: radial-gradient(96% 68% at 14% 106%, rgba(255, 146, 52, 0.30) 0%, rgba(0, 0, 0, 0) 72%),
+		radial-gradient(78% 56% at 86% 104%, rgba(255, 128, 44, 0.20) 0%, rgba(0, 0, 0, 0) 74%),
+		radial-gradient(120% 46% at 50% 112%, rgba(255, 178, 84, 0.16) 0%, rgba(0, 0, 0, 0) 78%),
+		radial-gradient(64% 40% at 34% 100%, rgba(255, 202, 104, 0.13) 0%, rgba(0, 0, 0, 0) 76%);
+	animation: emberFlicker 19.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+	will-change: opacity, transform;
+}
+
+/* Every stop EASES into the next — never steps(), which reads as
+   flashing, not fire. Floors sit high so the glow gutters but
+   never blinks off. Irregular stops = catch-and-gutter of a flame. */
+@keyframes emberFlicker {
+	0%   { opacity: 0.50; transform: scale(1.000) translate(0, 0); }
+	9%   { opacity: 0.74; transform: scale(1.026) translate(-1.4%, -0.6%); }
+	16%  { opacity: 0.52; transform: scale(0.996) translate(0.9%, 0.3%); }
+	27%  { opacity: 0.66; transform: scale(1.012) translate(-0.5%, -0.2%); }
+	34%  { opacity: 0.56; transform: scale(1.002) translate(0.4%, 0); }
+	43%  { opacity: 0.86; transform: scale(1.040) translate(-2.1%, -0.9%); } /* the big flare */
+	51%  { opacity: 0.49; transform: scale(0.994) translate(1.2%, 0.4%); }
+	60%  { opacity: 0.70; transform: scale(1.018) translate(-0.8%, -0.3%); }
+	66%  { opacity: 0.55; transform: scale(1.006) translate(0.6%, 0.1%); }
+	75%  { opacity: 0.80; transform: scale(1.032) translate(-1.7%, -0.7%); }
+	82%  { opacity: 0.51; transform: scale(0.998) translate(1.0%, 0.2%); }
+	90%  { opacity: 0.72; transform: scale(1.022) translate(-1.1%, -0.4%); }
+	100% { opacity: 0.50; transform: scale(1.000) translate(0, 0); }
+}
+
+/* Load-bearing rule 2: reduced motion kills the fire dead — not slows it. */
+@media (prefers-reduced-motion: reduce) {
+	:root[data-mood='ember'] body { animation: none; }
+	:root[data-mood='ember'] body::before { animation: none; opacity: 0.42; }
+}
