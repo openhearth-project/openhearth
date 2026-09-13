@@ -34,6 +34,7 @@ We can give a couple the **body** — hands, memory organs, rooms, continuity. T
 ## What's here so far
 
 - [`moods/`](./moods/) — **OpenHearth Moods**: weather for your household's rooms. Three moods that change the whole room (type, pace, corners, light, fire), with drop-in CSS and a rising-ember particle field. Our first real code in the world.
+- [`paper-moon/`](./paper-moon/) — **OpenHearth Paper Moon**: a day planner where every field takes both typed words and stylus handwriting at once — kept in a home you own so your companion can actually read the day. One vanilla-JS module, any host, local-first sync.
 
 ## Status
 
